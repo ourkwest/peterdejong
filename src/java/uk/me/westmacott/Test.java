@@ -74,8 +74,35 @@ public class Test {
             }
         };
 
+        DeJongAttractor three = new DeJongAttractor(1_000_000_000, "a = 0.970, b = -1.899, c = 1.381,d = -1.506") {
+            @Override
+            public Color lookupColour(int hits, int maxHits) {
+
+                if (hits == 0) {
+                    return Color.WHITE;
+                }
+
+                double r = 225.0;
+                double g = 40000.0;
+                double b = 400.0;
+
+                for (int i = 0; i < hits; i++) {
+                    r *= 0.995;
+                    g *= 0.98;
+                    b *= 0.92;
+                }
+
+                r = r > 255 ? 255 : r;
+                g = g > 255 ? 255 : g;
+                b = b > 255 ? 255 : b;
+
+                return new Color((int) b, (int) g, (int) r);
+            }
+        };
+
 //        one.run();
-        two.run();
+//        two.run();
+        three.run();
 
     }
 
