@@ -15,8 +15,10 @@ public abstract class DeJongAttractor {
     static int FULL_INSET_SIZE_4 = (FULL_SIZE - FULL_INSET - FULL_INSET) / 4;
     static int CROPPED_INSET = 4;
     static int BORDERED_INSET = 20;
-    static int SCALED_MAX = 2000;
+    static int SCALED_MAX = 1500;
     static Pattern p = Pattern.compile("[^-\\.0-9]*([-\\.0-9]+)[^-\\.0-9]+([-\\.0-9]+)[^-\\.0-9]+([-\\.0-9]+)[^-\\.0-9]+([-\\.0-9]+)[^-\\.0-9]*");
+    private double scaleX = 1.0;
+    private double scaleY = 1.0;
 
     private int iterations;
     private double a, b, c, d;
@@ -46,6 +48,17 @@ public abstract class DeJongAttractor {
         this.b = Double.parseDouble(b);
         this.c = Double.parseDouble(c);
         this.d = Double.parseDouble(d);
+    }
+
+    public DeJongAttractor(int iterations, String name, double scaleX, double scaleY) {
+        this.scaleX = scaleX;
+        this.scaleY = scaleY;
+        this.filename = String.format("attractor_%s_%d", name, iterations);
+        this.iterations = iterations;
+        this.a = 0;
+        this.b = 0;
+        this.c = 0;
+        this.d = 0;
     }
 
     public void run() throws Exception {
@@ -158,10 +171,12 @@ public abstract class DeJongAttractor {
             for (int j = 0; j < chunk; j++) {
                 x0 = x1;
                 y0 = y1;
-                x1 = Math.sin(a * y0) - Math.cos(b * x0);
-                y1 = Math.sin(c * x0) - Math.cos(d * y0);
-                xg = FULL_SIZE_2 + (int)(FULL_INSET_SIZE_4 * x0);
-                yg = FULL_SIZE_2 + (int)(FULL_INSET_SIZE_4 * y0);
+//                x1 = Math.sin(a * y0) - Math.cos(b * x0);
+//                y1 = Math.sin(c * x0) - Math.cos(d * y0);
+                x1 = newX(x0, y0);
+                y1 = newY(x0, y0);
+                xg = FULL_SIZE_2 + (int)(FULL_INSET_SIZE_4 * scaleX * x0);
+                yg = FULL_SIZE_2 + (int)(FULL_INSET_SIZE_4 * scaleY * y0);
                 if (xg < FULL_SIZE && yg < FULL_SIZE) {
                     hits[xg][yg]++;
                 }
@@ -172,6 +187,14 @@ public abstract class DeJongAttractor {
                     track.substring(i + marker.length()));
         }
         System.out.println();
+    }
+
+    public double newX(double x, double y) {
+        return Math.sin(a * y) - Math.cos(b * x);
+    }
+
+    public double newY(double x, double y) {
+        return Math.sin(c * x) - Math.cos(d * y);
     }
 
     public static BufferedImage getScaledInstance(BufferedImage img,

@@ -100,9 +100,50 @@ public class Test {
             }
         };
 
+        DeJongAttractor four = new DeJongAttractor(1_000_000_000, "Henon_1", 0.75, 2.0) {
+
+            double a_ = 1.4;
+            double b_ = 0.3;
+
+            @Override
+            public Color lookupColour(int hits, int maxHits) {
+
+                if (hits == 0) {
+                    return Color.BLACK;
+                }
+
+                double r = 225.0;
+                double g = 40000.0;
+                double b = 400.0;
+
+                for (int i = 0; i < hits; i++) {
+                    r *= 0.999995;
+                    g *= 0.98;
+                    b *= 0.92;
+                }
+
+                r = r > 255 ? 0 : 255 - r;
+                g = g > 255 ? 0 : 255 - g;
+                b = b > 255 ? 0 : 255 - b;
+
+                return new Color((int) b, (int) g, (int) r);
+            }
+
+            @Override
+            public double newX(double x, double y) {
+                return 1.0 - a_ * x * x + y;
+            }
+
+            @Override
+            public double newY(double x, double y) {
+                return b_ * x;
+            }
+        };
+
 //        one.run();
 //        two.run();
-        three.run();
+//        three.run();
+        four.run();
 
     }
 
