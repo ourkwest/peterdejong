@@ -1,0 +1,17 @@
+attractor_Henon_0_1000000000.data
+attractor_Henon_0_1000000000.png
+attractor_Henon_1000000000.data
+attractor_Henon_1000000000.png
+attractor_Henon_1_1000000000.data
+attractor_Henon_1_1000000000.png
+deJong_0.0_0.0_0.0_-0.0_1000000000.data
+deJong_0.0_0.0_0.0_-0.0_1000000000.png
+deJong_-0.827_-1.637_1.659_-0.943_1000000000.data
+deJong_-0.827_-1.637_1.659_-0.943_1000000000.png
+deJong_0.970_-1.899_1.381_-1.506_1000000000.data
+deJong_0.970_-1.899_1.381_-1.506_1000000000.png
+deJong_-2.7_-0.09_-0.86_-2.2_1000000000.data
+deJong_-2.7_-0.09_-0.86_-2.2_1000000000.png
+ls.txt
+src
+target
